@@ -1,3 +1,6 @@
+import warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning)
+
 import cv2
 import face_recognition
 from PyQt6.QtWidgets import QMainWindow, QApplication, QLabel,QPushButton
