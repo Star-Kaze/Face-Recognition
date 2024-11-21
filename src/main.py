@@ -93,8 +93,8 @@ class Main(QMainWindow):
 
     def take_photo(self):
         if self.faces_exist:
-            cut_face_rgb = cv2.cvtColor(self.image_list["cut_face"], cv2.COLOR_BGR2RGB)
-            full_image_rgb = cv2.cvtColor(self.image_list["full_image"], cv2.COLOR_BGR2RGB)
+            cut_face_rgb = self.image_list["cut_face"]
+            full_image_rgb = self.image_list["full_image"]
             cv2.imwrite('./.cut_face.jpg', cut_face_rgb)
             cv2.imwrite('./.full_image.jpg', full_image_rgb)
             print("Photos saved successfully")
