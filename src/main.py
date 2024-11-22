@@ -3,7 +3,7 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 import cv2
 import face_recognition
-from PyQt6.QtWidgets import QMainWindow, QApplication, QLabel,QPushButton
+from PyQt6.QtWidgets import QMainWindow, QApplication, QLabel,QPushButton,QStackedLayout,QWidget
 from PyQt6.QtCore import QTimer
 from PyQt6.QtGui import QImage, QPixmap
 import sys
@@ -41,18 +41,28 @@ class Main(QMainWindow):
         }
         """)
 
-        take_pic_but = QPushButton("Take Picture", self)
+        central_widget = QStackedLayout()
+        self.setLayout(central_widget)
+
+        self.main_window = QWidget()
+        self.main_window_setup()
+        central_widget.addWidget(self.main_window)
+
+
+    def main_window_setup(self):
+        take_pic_but = QPushButton("Take Picture", self.main_window)
         take_pic_but.setGeometry(800, 260, 200, 80)
         take_pic_but.clicked.connect(self.take_photo)
 
-        self.cam_label = QLabel(self)
+        self.cam_label = QLabel(self.main_window)
         self.cam_label.setGeometry(60, 60, 640, 480)
         self.cam = cv2.VideoCapture(0)
         self.cam.set(cv2.CAP_PROP_FRAME_WIDTH, 640)  # Reduce resolution
         self.cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
         self.frame_skip = 2  # Process every 2nd frame
         self.frame_count = 0
-        timer = QTimer(self)
+
+        timer = QTimer(self.main_window)
         timer.timeout.connect(self.show_webcam)
         timer.start(10)
 
